@@ -1,8 +1,8 @@
 ﻿if(-not (Test-Path env:CI))
 {
-    $signExe = 'C:\Program Files (x86)\Windows Kits\10\bin\10.0.16299.0\x86\signtool.exe'
+    $signExe = 'C:\Program Files (x86)\Windows Kits\10\bin\10.0.26100.0\x86\signtool.exe'
     $files = gci '..\Build\Release\*' -Recurse -Include *.exe,LoaderDll.dll,LocaleEmulator.dll | %{('"{0}"' -f $_.FullName)}
-    $timestampUrl = 'http://time.certum.pl/'
+    $timestampUrl = 'http://timestamp.digicert.com'
 
-    .$signExe sign /a /v /fd sha256 /t $timestampUrl $files
+    .$signExe sign /v /a /fd SHA384 /t $timestampUrl $files
 }
